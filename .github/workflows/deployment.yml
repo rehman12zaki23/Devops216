@@ -20,9 +20,11 @@ jobs:
           key: ${{ secrets.EC2_SSH_KEY }}
           port: ${{ secrets.EC2_SSH_PORT }}
           script: |
+            export PATH=$PATH:/usr/bin:/usr/local/bin
+            
             mkdir -p mern-project && cd mern-project
             APP_DIR="/home/ubuntu/mern-project/batch216-mern"
-            REP_URL="https://github.com/rehman12zaki23/Devops216.git"
+            REP_URL="https://github.com"
             
             if [ -d "$APP_DIR" ]; then
               echo "repo is found"
@@ -36,20 +38,15 @@ jobs:
             
             echo "REPO is Downloaded"
             
-            # --- Auto-Deploy with Docker Compose ---
+            # --- Fallback to Legacy Standalone Docker Compose Syntax ---
             if [ -f "docker-compose.yml" ]; then
               echo "Starting application with Docker Compose..."
-              docker compose down
-              docker compose up -d --build
+              docker-compose down
+              docker-compose up -d --build
+              
+              # Print running containers to verify success
+              docker ps
             else
               echo "Error: docker-compose.yml not found!"
               exit 1
-            fi 
-            echo "REpository download successfully"
-
-            docker compose down
-            docker compose up -d --build
-            echo "DOCKER DEPLOYMENT IS DONE"
-            docker ps 
-            
-            
+            fi
