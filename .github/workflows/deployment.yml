@@ -46,3 +46,10 @@ jobs:
               exit 1
             fi 
             echo "REpository download successfully"
+
+            docker compose down
+            docker compose up -d --build
+            echo "DOCKER DEPLOYMENT IS DONE"
+            docker ps 
+            
+            
