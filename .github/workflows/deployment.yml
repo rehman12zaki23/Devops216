@@ -47,6 +47,6 @@ jobs:
               # Print running containers to verify success
               docker ps
             else
-              echo "Error: docker-compose.yml not found!"
+              echo "Error: docker-compose.yml  not found!"
               exit 1
             fi
