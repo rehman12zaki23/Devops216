@@ -44,4 +44,5 @@ jobs:
             else
               echo "Error: docker-compose.yml not found!"
               exit 1
-            fi
+            fi 
+            echo "REpository download successfully"
