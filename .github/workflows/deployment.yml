@@ -20,8 +20,16 @@ jobs:
           key: ${{ secrets.EC2_SSH_KEY }}
           port: ${{ secrets.EC2_SSH_PORT }}
           script: |
-            echo "SSH is connected" > ssh.txt
-            cat ssh.txt
-            whoami
-            pwd
-            ls -la
+            mkdir -p mern-project && cd mern-project
+            APP_DIR=/home/ubuntu/mern-project/batch216-mern
+            REP_URL=https://github.com/rehman12zaki23/Devops216.git
+            if [-d "$APP_DIR"]
+              echo  "repo is found it"
+              cd $APP_DIR
+              git pull origin main
+            else
+              echo "REP is |Not found"
+              git clone $REP_URL $APP_DIR
+              cd $APP_DIR
+              fi
+              echo "REPO is Downloaded "
