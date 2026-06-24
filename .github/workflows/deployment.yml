@@ -1,0 +1,30 @@
+name: SSH to ec2
+on:
+  push:
+    branches: 
+      -  main
+  jobs:
+    ssh:
+      runs-on: ubuntu-latest
+
+      steps:
+      - name: checkout code
+        uses:  action/checkout@v4
+      - name:  ssh to ec2 instance
+        uses:  appleboy/ssh-action@v1.2.0
+        with:
+          host:  ${{secret.EC2_HOST_IP}}
+          username: ${{secret.EC2_USER}}
+          key: ${{secret.EC2_SSH_KEY}}
+          port: ${{secret.EC2_SSH_PORT}}
+
+          script: |
+          echo "SSH is connented" > ssh.txt
+          cat ssh.txt
+          whoami 
+          pwd
+          ls -la  
+
+          
+          
+      
